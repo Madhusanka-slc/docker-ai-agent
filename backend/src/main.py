@@ -11,4 +11,4 @@ if not API_KEY:
 
 @app.get("/")
 def read_root():
-    return {"Hello": "NEW World from FastAPI", "Project": MY_PROJECT}
+    return {"Hello": "Then: World from FastAPI", "Project": MY_PROJECT}
