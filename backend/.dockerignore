@@ -1,0 +1,22 @@
+# Ignore the folder 'ignoreme' inside src
+src/ignoreme/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore git folder
+.git/
+.gitignore
+
+# Ignore virtual environments
+venv/
+.env
+
+# Ignore local logs or temporary files
+*.log
+*.tmp
+
+# Ignore IDE/editor files
+.vscode/
+.idea/

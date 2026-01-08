@@ -1,0 +1,46 @@
+services:
+  backend:
+    # image: python:3.14.2
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8000"
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - PORT=8000
+      - MY_PROJECT=AI Agent with Docker
+    env_file:
+      - .env.sample
+    volumes:
+      - ./backend/src:/app
+    develop:
+      watch:
+       - action: rebuild
+         path: ./backend/requirements.txt
+       - action: rebuild
+         path: ./backend/Dockerfile
+      #  - action: restart
+      #    path: ./backend/src/
+       - action: restart
+         path: ./backend/src/
+        #  target: /app
+    
+
+
+  static_html:
+    # image: python:3.14.2
+    build:
+      context: ./static_html
+      dockerfile: static.Dockerfile
+    ports:
+      - "8000:8000"
+      - "3000:8000"
+    command: python -m http.server 8000  # override default command if needed
+    volumes:
+      - ./static_html/src:/app  # mount local src directory to /app in the container
+  # app-2:
+  #   image: madhusankaslc/ai-py-app-test:latest
+  #   ports:
+  #     - "4000:8000"
+  #   command: python -m http.server 8000
