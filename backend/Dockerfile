@@ -1,5 +1,9 @@
 FROM python:3.14.2
 
+# host.docker.internal -> localhost of host machine
+# curl -X POST -d '{message: "Hello"}' -H "Content-Type: application/json" http://host.docker.internal:8000/api/chats/
+RUN apt-get update && apt-get install -y curl
+
 RUN python -m venv /opt/venv/
 ENV PATH=/opt/venv/bin:$PATH
 

@@ -14,6 +14,8 @@ services:
       - .env.sample
     volumes:
       - ./backend/src:/app
+    depends_on:
+      - db_service
     develop:
       watch:
        - action: rebuild
@@ -25,22 +27,39 @@ services:
        - action: restart
          path: ./backend/src/
         #  target: /app
+# DATABSE_URL=postgresql+psycopg://user:password@db_service:5432/mydatabase
+  db_service:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: db-password
+      POSTGRES_DB: mydb
+    # env_file:
+    #   - .env.sample-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - dc_managed_db_volume:/var/lib/postgresql/data
     
 
 
-  static_html:
-    # image: python:3.14.2
-    build:
-      context: ./static_html
-      dockerfile: static.Dockerfile
-    ports:
-      - "8000:8000"
-      - "3000:8000"
-    command: python -m http.server 8000  # override default command if needed
-    volumes:
-      - ./static_html/src:/app  # mount local src directory to /app in the container
+  # static_html:
+  #   # image: python:3.14.2
+  #   build:
+  #     context: ./static_html
+  #     dockerfile: static.Dockerfile
+  #   ports:
+  #     - "8000:8000"
+  #     - "3000:8000"
+  #   command: python -m http.server 8000  # override default command if needed
+  #   volumes:
+  #     - ./static_html/src:/app  # mount local src directory to /app in the container
   # app-2:
   #   image: madhusankaslc/ai-py-app-test:latest
   #   ports:
   #     - "4000:8000"
   #   command: python -m http.server 8000
+
+
+volumes:
+  dc_managed_db_volume:
