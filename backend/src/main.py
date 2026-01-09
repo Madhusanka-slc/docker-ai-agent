@@ -4,7 +4,7 @@ import os
 app = FastAPI()
 
 MY_PROJECT = os.environ.get("MY_PROJECT", "No Project Found")
-API_KEY = os.environ.get("API_KEY")
+API_KEY = os.environ.get("API_KEY","Not Found")
 
 if not API_KEY:
     raise NotImplementedError("API_KEY is not set in environment variables.")
