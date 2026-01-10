@@ -1,4 +1,4 @@
-FROM python:3.14.2
+FROM python:3.12.12
 
 # host.docker.internal -> localhost of host machine
 # curl -X POST -d '{message: "Hello"}' -H "Content-Type: application/json" http://host.docker.internal:8000/api/chats/
